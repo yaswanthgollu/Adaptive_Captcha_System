@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Adaptive CAPTCHA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+</head>
+<body onload="startTimer()">
+    <h2>Verify You're Human</h2>
+    <form action="/submit" method="post" onsubmit="captureTime()">
+        <img src="{{ url_for('serve_captcha', filename=captcha_image.split('/')[-1]) }}" alt="CAPTCHA">
+        <br><br>
+        <input type="text" name="captcha_input" required placeholder="Enter CAPTCHA">
+        <input type="hidden" id="time_taken" name="time_taken">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
