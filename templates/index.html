@@ -4,16 +4,26 @@
     <title>Adaptive CAPTCHA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="{{ url_for('static', filename='js/timer.js') }}"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body onload="startTimer()">
-    <h2>Verify You're Human</h2>
-    <form action="/submit" method="post" onsubmit="captureTime()">
-        <img src="{{ url_for('serve_captcha', filename=captcha_image.split('/')[-1]) }}" alt="CAPTCHA">
-        <br><br>
-        <input type="text" name="captcha_input" required placeholder="Enter CAPTCHA">
-        <input type="hidden" id="time_taken" name="time_taken">
-        <br><br>
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container">
+        <h2>Prove You're Human</h2>
+        <form action="/submit" method="post" onsubmit="captureTime()">
+            <img src="{{ url_for('serve_captcha', filename=captcha_image.split('/')[-1]) }}" alt="CAPTCHA">
+            <br>
+            <input type="text" id="captcha_input" name="captcha_input" placeholder="Enter CAPTCHA" required oninput="validateCaptchaInput()">
+            <input type="hidden" id="time_taken" name="time_taken">
+            <div id="feedback" style="margin-top: 10px; font-size: 14px;"></div>
+            <br>
+            <button type="submit">Verify</button>
+        </form>
+
+        <!-- Hidden actual text to compare against (passed from Flask) -->
+        <script>
+            const actualCaptcha = "{{ session['captcha_text'] }}";
+        </script>
+
+    </div>
 </body>
 </html>

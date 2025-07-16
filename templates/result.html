@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Result</title>
+    <title>CAPTCHA Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .result-box {
+            background-color: #1e1e1e;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            width: 360px;
+        }
+
+        h2 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: {{ 'green' if result == 'Success!' else 'red' }};
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2563eb;
+        }
+    </style>
 </head>
 <body>
-    <h2>{{ result }}</h2>
-    <p>Time Taken: {{ time }} seconds</p>
-    <a href="/">Try Again</a>
+    <div class="result-box">
+        <h2>{{ result }}</h2>
+        <p>Time Taken: {{ time }} seconds</p>
+        <a href="/">Try Again</a>
+    </div>
 </body>
 </html>

@@ -2,6 +2,7 @@ from captcha.image import ImageCaptcha
 import random
 import string
 import os
+import time
 
 def generate_captcha(difficulty='easy'):
     characters = {
@@ -16,8 +17,11 @@ def generate_captcha(difficulty='easy'):
     # Ensure directory exists
     os.makedirs("static/captchas", exist_ok=True)
 
-    image = ImageCaptcha()
-    file_path = f"static/captchas/{text}.png"
+    unique_id = str(int(time.time() * 1000))
+    filename = f"{text}_{unique_id}.png"
+    file_path = f"static/captchas/{filename}"
+
+    image = ImageCaptcha(width=250, height=90, font_sizes=[48])
     image.write(text, file_path)
 
-    return text, f"captcha/{text}.png"
+    return text, f"captcha/{filename}"
