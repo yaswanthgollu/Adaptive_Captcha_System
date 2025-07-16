@@ -19,15 +19,20 @@ def submit():
     user_input = request.form.get('captcha_input')
     time_taken = time.time() - session['start_time']
 
-    # Difficulty adjustment
-    if time_taken < 2:
-        session['captcha_level'] = 'hard'
-    elif time_taken < 6:
-        session['captcha_level'] = 'medium'
-    else:
-        session['captcha_level'] = 'easy'
+    def get_difficulty_level(time_taken):
+        if time_taken < 2:
+            return 5  # Very Hard
+        elif time_taken < 4:
+            return 4
+        elif time_taken < 6:
+            return 3
+        elif time_taken < 8:
+            return 2
+        else:
+            return 1  
 
     if user_input == session['captcha_text']:
+        session['captcha_level'] = get_difficulty_level(time_taken)
         return render_template('result.html', result="Success!", time=round(time_taken, 2))
     else:
         return render_template('result.html', result="Failed!", time=round(time_taken, 2))
