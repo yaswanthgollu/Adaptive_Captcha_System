@@ -42,4 +42,4 @@ def serve_captcha(filename):
     return send_file(os.path.join('static', 'captchas', filename), mimetype='image/png')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False,port=5000, host='0.0.0.0')
